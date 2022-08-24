@@ -11,25 +11,41 @@
     <div class="wrapper">
       <div class="container">
         <h1>CRUD</h1>
-        <main class="main-content">
-          <div class="add_input">
-            <input id="inputName" type="text" placeholder="Create user ..." />
-            <button id="addBtn" onclick="getAdd()">Add</button>
-            <button id="saveBtn">Save</button>
-          </div>
-          <div class="table_container">
-            <table class="table" border="1" border-collapse:"collapse">
-              <thead>
-                <tr>
-                  <td>Id</td>
-                  <td>Name</td>
-                  <td>Action</td>
-                </tr>
-              </thead>
-              <tbody id="tbody"></tbody>
-            </table>
-          </div>
-        </main>
+        <div class="add_input__container">
+          <input
+            id="inputName"
+            type="text"
+            placeholder="Create students name ..."
+          />
+          <input
+            id="inputSurname"
+            type="text"
+            placeholder="Create students surname ..."
+          />
+          <button onclick="getAddUser()">Add</button>
+          <button id="saveButton">Save</button>
+        </div>
+        <p id="warning"></p>
+        <div class="searchDiv">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search students..."
+          />
+          <button id="searchButton" onclick="getSearch()">🔍</button>
+        </div>
+        <table border="2">
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>Name</td>
+              <td>Surname</td>
+              <td>Action</td>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+          <p id="warning2"></p>
+        </table>
       </div>
     </div>
     <script src="./script.js"></script>

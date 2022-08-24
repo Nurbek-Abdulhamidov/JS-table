@@ -1,60 +1,82 @@
-const body = document.getElementById("tbody");
-const input = document.getElementById("inputName");
-const addButton = document.getElementById("addBtn");
-const saveButton = document.getElementById("saveBtn");
+const nameInput = document.getElementById("inputName");
+const surNameInput = document.getElementById("inputSurname");
+const inputSearch = document.getElementById("searchInput");
+const tbody = document.getElementById("tableBody");
+const warning = document.getElementById("warning");
+const warning2 = document.getElementById("warning2");
+const saveBtn = document.getElementById("saveButton");
+const searchBtn = document.getElementById("searchButton");
 
-let users = [
-  { id: 1, name: "Eshmat" },
-  { id: 2, name: "Toshmat" },
-  { id: 3, name: "Gulmat" },
+let students = [
+  { id: 1, name: "Eshmat", surname: "Toshmatov" },
+  { id: 2, name: "Toshmat", surname: "Eshmatov" },
+  { id: 3, name: "Gulmat", surname: "Mamatov" },
 ];
 
-// Read users
-const getUser = () => {
-  let user = "";
-  user += users
-    .map(
-      (value, index) => `
-      <tr>
-        <td>${index + 1}</td>
-        <td>${value.name}</td>
-        <td>
+const createStudent = () => {
+  let student = "";
+  student += students
+    .map((value, index) =>
+      value.name.toLowerCase().includes(inputSearch.value.toLowerCase())
+        ? `
+    <tr>
+      <td>${index + 1}</td>
+      <td>${value.name}</td>
+      <td>${value.surname}</td>
+      <td>
         <button onclick={getEdit(${value.id})}>Edit</button>
         <button onclick={getDelete(${value.id})}>Delete</button>
-        </td>
-      </tr>
+      </td>
+    </tr>
   `
+        : ""
     )
     .join("");
-  body.innerHTML = user;
+  searchBtn.addEventListener("click", () => {
+    createStudent();
+  });
+  tbody.innerHTML = student;
 };
-getUser();
+createStudent();
 
-//  Delete item
+//  Delete student
 const getDelete = (id) => {
-  users = users.filter((val) => val.id !== id);
-  console.log(id);
-  getUser();
+  students = students.filter((value) => value.id !== id);
+  createStudent();
 };
 
-// Create users
-const getAdd = () => {
-  if (input.value !== "") {
-    users = [...users, { id: users.length + 1, name: input.value }];
-    input.value = "";
-    getUser();
+// Add student
+const getAddUser = () => {
+  if (nameInput.value !== "" && surNameInput.value !== "") {
+    students = [
+      ...students,
+      {
+        id: students.length + 1,
+        name: nameInput.value,
+        surname: surNameInput.value,
+      },
+    ];
+    warning.innerHTML = "";
+    nameInput.value = "";
+    surNameInput.value = "";
+  } else {
+    warning.innerHTML = "Ma'lumotingizni to'liq kiriting !";
   }
+  createStudent();
 };
 
-//  Edit user
+//  Edit student
 const getEdit = (id) => {
-  users.map((value) => {
+  students.map((value) => {
     if (value.id === id) {
-      input.value = value.name;
-      saveButton.addEventListener("click", () => {
-        value.name = input.value;
-        input.value = "";
-        getUser();
+      nameInput.value = value.name;
+      surNameInput.value = value.surname;
+      saveBtn.addEventListener("click", () => {
+        value.name = nameInput.value;
+        value.surname = surNameInput.value;
+        nameInput.value = "";
+        surNameInput.value = "";
+        createStudent();
       });
     }
   });
