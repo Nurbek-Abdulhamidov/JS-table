@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 900px;
+  height: 700px;
+  background-color: gray;
+  border-radius: 10px;
+  box-shadow: 0, 0, 0, 0.8;
+  text-align: center;
+}
+
+.add_input {
+  margin: 20px 0;
+}
+
+.main-content {
+  width: 100%;
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+}
